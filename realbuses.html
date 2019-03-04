@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: {lat: 42.357261, lng: -71.092626}
+        });
+        setMarkers(map)
+      }  
+     
+
+async function fetchurl(){
+  var url = 'https://api-v3.mbta.com/vehicles?api_key=7347704f744f4c69b536525085cf0d8f&filter[route]=1&include=trip'
+  var res= await fetch(url)
+  var json= await res.json()
+  return json.data}
+     
+async function setMarkers(map) {
+  console.log(new Date())
+  var locations= await fetchurl()
+  var buses=[]
+  for (var i = 0; i < locations.length; i++) {
+      buses.push([locations[i].attributes.latitude,locations[i].attributes.longitude])
+      }
+      console.log(buses)
+  for (var j =0;j<locations.length; j++){
+    if (locations[j].attributes.direction_id===1){
+      var image = 'blue.png'
+      var bus = buses[j];
+      var marker = new google.maps.Marker({
+      position: {lat: bus[0], lng: bus[1]},
+      map: map,
+      icon: image})}
+    if(locations[j].attributes.direction_id===0){
+      var image = 'red.png'
+      var bus = buses[j];
+      var marker = new google.maps.Marker({
+      position: {lat: bus[0], lng: bus[1]},
+      map: map,
+      icon: image})
+      }
+    }         
+}
+
+
+
+setInterval(function(){
+  initMap()
+   },15000);
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARxs_0QWBQzZ-7tnFIkcz6Tzh5Fr1I0xg&callback=initMap">
+    </script>
+  </body>
+</html>

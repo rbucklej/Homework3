@@ -1,0 +1,23 @@
+{
+  "name": "homework3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "getData.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rbucklej/Homework3.git"
+  },
+  "author": "Jess Arbuckle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rbucklej/Homework3/issues"
+  },
+  "homepage": "https://github.com/rbucklej/Homework3#readme",
+  "dependencies": {
+    "es6-promise": "^4.2.6",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
